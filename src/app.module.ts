@@ -1,3 +1,4 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -28,27 +29,37 @@ import { RolModule } from './rol/rol.module';
 import { AppGateway } from './app.gateway';
 import { SocketModule } from './socket/socket.module';
 import { AuthModule } from './auth/auth.module';
+import { IaModule } from './ia/ia.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      password: 'postgres',
-      username: 'postgres',
-      entities: [Usuario,
-        Estacion,
-        Unidad,
-        TipoMedicion,
-        Informe,
-        InformeEstacion,
-        Medicion,
-        MedicionHistorico,
-        Rol], // here we have added user enitity in entities array
-      database: 'red_estaciones',
-      synchronize: true,
-      logging: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: (configService.get<string>('DB_TYPE') || 'postgres') as any,
+        host: configService.get<string>('DB_HOST', 'localhost'),
+        port: Number(configService.get<number>('DB_PORT', 5432)),
+        username: configService.get<string>('DB_USERNAME', 'postgres'),
+        password: configService.get<string>('DB_PASSWORD', 'postgres'),
+        database: configService.get<string>('DB_DATABASE', 'red_estaciones'),
+        entities: [
+          Usuario,
+          Estacion,
+          Unidad,
+          TipoMedicion,
+          Informe,
+          InformeEstacion,
+          Medicion,
+          MedicionHistorico,
+          Rol,
+        ],
+        synchronize: String(configService.get('DB_SYNCHRONIZE', 'true')) === 'true',
+        logging: String(configService.get('DB_LOGGING', 'true')) === 'true',
+      }),
     }),
     ScheduleModule.forRoot(),
     UsuarioModule,
@@ -61,6 +72,7 @@ import { AuthModule } from './auth/auth.module';
     RolModule,
     SocketModule,
     AuthModule,
+    IaModule,
   ],
   controllers: [AppController],
   providers: [AppService,AppGateway,BatchService,DatabaseTimezoneService],
