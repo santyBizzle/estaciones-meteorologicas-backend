@@ -21,7 +21,7 @@ docker run -d --name puyu-backend --restart always -p 3000:3000 \
   -e JWT_SECRET=<tu_secreto_jwt_super_seguro_aqui> \
   -e JWT_EXPIRES_IN=600s \
   -e GEMINI_API_KEY=<tu_gemini_api_key_aqui> \
-  -e GEMINI_MODEL=gemini-2.5-flash \
+  -e GEMINI_MODEL=gemini-3.8-flash \
   -e TELEGRAM_BOT_TOKEN=<tu_telegram_bot_token_aqui> \
   -e TELEGRAM_CHAT_ID=<tu_telegram_chat_id_aqui> \
   -e IA_CRON_INTERVAL_MINUTES=20 \

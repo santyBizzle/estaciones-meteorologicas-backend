@@ -72,7 +72,7 @@ export class IaCronService {
       }
 
       const payloadEstaciones = Array.from(estacionesMap.values());
-      this.logger.log(`Enviando telemetría de ${payloadEstaciones.length} estación(es) a Gemini 2.5 Flash...`);
+      this.logger.log(`Enviando telemetría de ${payloadEstaciones.length} estación(es) a Gemini 3.8 Flash...`);
 
       // Analizar con Gemini IA
       const resultadoIA = await this.iaService.analizarMediciones(payloadEstaciones);

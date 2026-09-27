@@ -17,7 +17,7 @@ export class IaService {
 
   async analizarMediciones(dataMediciones: any[]): Promise<AnomalyAnalysisResult | null> {
     const apiKey = this.configService.get<string>('GEMINI_API_KEY');
-    const modelName = this.configService.get<string>('GEMINI_MODEL', 'gemini-2.5-flash');
+    const modelName = this.configService.get<string>('GEMINI_MODEL', 'gemini-3.8-flash');
 
     if (!apiKey || apiKey === 'tu_gemini_api_key_aqui') {
       this.logger.warn('GEMINI_API_KEY no configurada en el .env');
@@ -61,7 +61,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura exacta:
       });
 
       const responseText = response.text || '';
-      this.logger.log(`Respuesta de Gemini 2.5 Flash: ${responseText}`);
+      this.logger.log(`Respuesta de Gemini 3.8 Flash: ${responseText}`);
 
       const result: AnomalyAnalysisResult = JSON.parse(responseText);
       return result;
@@ -73,7 +73,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura exacta:
 
   async responderChat(promptUsuario: string, contextoEstaciones?: any[]): Promise<string> {
     const apiKey = this.configService.get<string>('GEMINI_API_KEY');
-    const modelName = this.configService.get<string>('GEMINI_MODEL', 'gemini-2.5-flash');
+    const modelName = this.configService.get<string>('GEMINI_MODEL', 'gemini-3.8-flash');
 
     if (!apiKey || apiKey === 'tu_gemini_api_key_aqui') {
       return 'Por favor configura tu GEMINI_API_KEY en el archivo .env del backend para activar el asistente de IA.';
