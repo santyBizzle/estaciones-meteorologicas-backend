@@ -30,6 +30,7 @@ import { AppGateway } from './app.gateway';
 import { SocketModule } from './socket/socket.module';
 import { AuthModule } from './auth/auth.module';
 import { IaModule } from './ia/ia.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -73,6 +74,7 @@ import { IaModule } from './ia/ia.module';
     SocketModule,
     AuthModule,
     IaModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService,AppGateway,BatchService,DatabaseTimezoneService],

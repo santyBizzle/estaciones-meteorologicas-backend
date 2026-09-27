@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'http://localhost:9000',
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
@@ -17,8 +17,9 @@ async function bootstrap() {
     .addTag('cats')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('server', app, documentFactory);
   app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
