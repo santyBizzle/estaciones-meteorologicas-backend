@@ -126,5 +126,7 @@ INSERT INTO public.tipo_medicion (id, nombre, formato, created_at, updated_at, "
 
 SELECT setval('public.tipo_medicion_id_seq', (SELECT MAX(id) FROM public.tipo_medicion));
 
-INSERT INTO public.estacion (numero_serie, modelo, descripcion, latitud, longitud, variables, estado, informacion_adicional, created_at, updated_at) VALUES
-('2232330000888802', '2232330000888802', '2232330000888802', '0.5', '0.5', '', 1, '', now(), now());
+INSERT INTO public.estacion (numero_serie,modelo,descripcion,latitud,longitud,variables,estado,informacion_adicional,created_at,updated_at)
+VALUES
+('2232330000888803','2232330000888803','2232330000888803','-0.204491','-78.509288','2232230000888803',1,'',now(),now()),
+('2232330000888805','2232330000888805','ESP32_lora_2','-0.2009333','-78.506571','V,T,P,R,H',1,'',now(),now());

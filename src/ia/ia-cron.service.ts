@@ -19,8 +19,8 @@ export class IaCronService {
     private readonly telegramService: TelegramService,
   ) {}
 
-  // Se ejecuta cada 20 minutos por defecto usando la anotación de NestJS Cron
-  @Cron('*/20 * * * *')
+  // Se ejecuta cada N minutos por defecto usando la anotación de NestJS Cron
+  @Cron('*/5 * * * *')
   async handleCronAnomalyCheck() {
     this.logger.log('⏰ Ejecutando revisión programada de anomalías con IA...');
     await this.ejecutarAnalisis();
@@ -29,7 +29,7 @@ export class IaCronService {
   async ejecutarAnalisis() {
     try {
       const intervalMinutes = Number(
-        this.configService.get<number>('IA_CRON_INTERVAL_MINUTES', 20),
+        this.configService.get<number>('IA_CRON_INTERVAL_MINUTES', 5),
       );
 
       // Calcular fecha límite hacia atrás
