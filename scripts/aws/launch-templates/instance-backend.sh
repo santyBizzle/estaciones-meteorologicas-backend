@@ -24,5 +24,5 @@ docker run -d --name puyu-backend --restart always -p 3000:3000 \
   -e GEMINI_MODEL=gemini-3.8-flash \
   -e TELEGRAM_BOT_TOKEN=<tu_telegram_bot_token_aqui> \
   -e TELEGRAM_CHAT_ID=<tu_telegram_chat_id_aqui> \
-  -e IA_CRON_INTERVAL_MINUTES=20 \
+  -e IA_CRON_INTERVAL_MINUTES=10 \
   $BACKEND_IMAGE

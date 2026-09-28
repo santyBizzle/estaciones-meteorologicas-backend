@@ -20,7 +20,7 @@ export class IaCronService {
   ) {}
 
   // Se ejecuta cada N minutos por defecto usando la anotación de NestJS Cron
-  @Cron('*/5 * * * *')
+  @Cron(`*/${process.env.IA_CRON_INTERVAL_MINUTES ?? '10'} * * * *`)
   async handleCronAnomalyCheck() {
     this.logger.log('⏰ Ejecutando revisión programada de anomalías con IA...');
     await this.ejecutarAnalisis();
@@ -29,7 +29,7 @@ export class IaCronService {
   async ejecutarAnalisis() {
     try {
       const intervalMinutes = Number(
-        this.configService.get<number>('IA_CRON_INTERVAL_MINUTES', 5),
+        this.configService.get<number>('IA_CRON_INTERVAL_MINUTES', 10),
       );
 
       // Calcular fecha límite hacia atrás
